@@ -1,5 +1,7 @@
 # RGB Triangle
 
+Base Project: https://github.com/Dovyski/opengl-demos/tree/master/src/shader-uniform
+
 ## Windows
 
 Visual Studio, F5
@@ -11,7 +13,9 @@ Visual Studio, F5
 make install-deps
 ```
 
-#### Run
+### Run
 ```
 make && ./main
 ```
+
+
