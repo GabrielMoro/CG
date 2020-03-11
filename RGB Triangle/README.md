@@ -1,6 +1,6 @@
 # RGB Triangle
 
-Base Project: https://github.com/Dovyski/opengl-demos/tree/master/src/shader-uniform
+Base Project: https://github.com/Dovyski/opengl-demos/tree/master/src/shader-hello-world
 
 ## Windows
 
