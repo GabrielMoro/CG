@@ -14,6 +14,7 @@
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
+// Vertex Shader
 const char *vertexShaderSource = "#version 330 core\n"
 "layout (location = 0) in vec3 pos;\n"
 "layout (location = 1) in vec3 vColor;\n"
@@ -23,6 +24,7 @@ const char *vertexShaderSource = "#version 330 core\n"
 "	color = vColor;"
 "}\0";
 
+// Fragment Shader
 const char *fragmentShaderSource = "#version 330 core\n"
 "out vec4 FragColor;\n"
 "in vec3 color;\n"
