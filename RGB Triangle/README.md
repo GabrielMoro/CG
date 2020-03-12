@@ -4,7 +4,7 @@ Base Project: https://github.com/Dovyski/opengl-demos/tree/master/src/shader-hel
 
 ## Windows
 
-Visual Studio, F5
+Open *RGB Triangle.sln* and run the solution
 
 ## Linux
 
@@ -18,4 +18,5 @@ make install-deps
 make && ./main
 ```
 
-
+## Result
+![RBG_Triangle](https://user-images.githubusercontent.com/22036337/76482335-a33ada00-63f2-11ea-929f-624de9d4d4cf.png)
