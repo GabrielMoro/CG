@@ -15,7 +15,7 @@ const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
 // Vertex Shader
-const char *vertexShaderSource = "#version 330 core\n"
+const char *vertexShaderSource = "#version 450 core\n"
 "layout (location = 0) in vec3 pos;\n"
 "layout (location = 1) in vec3 vColor;\n"
 "out vec3 color;\n"
@@ -25,7 +25,7 @@ const char *vertexShaderSource = "#version 330 core\n"
 "}\0";
 
 // Fragment Shader
-const char *fragmentShaderSource = "#version 330 core\n"
+const char *fragmentShaderSource = "#version 450 core\n"
 "out vec4 FragColor;\n"
 "in vec3 color;\n"
 "void main(){\n"
@@ -61,7 +61,7 @@ int main()
 
 	// glfw window creation
 	// --------------------
-	GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Shader Hello World", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "RGB Triangle", NULL, NULL);
 	if (window == NULL)
 	{
 		std::cout << "Failed to create GLFW window" << std::endl;
