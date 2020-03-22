@@ -3,7 +3,7 @@
 <!DOCTYPE html>
     <html>
         <head>
-            <title>Three.js Test</title>
+            <title>Orbit</title>
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
             <style>
@@ -20,9 +20,12 @@
             <script src="js/controls/OrbitControls.js"></script>
 
             <script>
-                var cam, scene, render, mash;
+                "use strict";
+
+                var mesh_earth, mesh_sun;
+                var cam, scene, render;
                 var controls, light;
-                var aux = 0, r = 400;
+                var aux = 0, r = 450;
 
                 init();
                 animate();
@@ -35,9 +38,13 @@
                     scene = new THREE.Scene();
 
                     // Light
-                    light = new THREE.PointLight(0xffffff);
+                    light = new THREE.PointLight(0xffffff, 5, 0, 2);
                     light.position.set(0, 0, 0);
                     scene.add(light);
+
+                    // XYZ Axis
+                    var axis = new THREE.AxisHelper(125);
+                    scene.add(axis);
 
                     // Textures
                     var earth = new THREE.TextureLoader().load('../data/textures/earth.jpg');
@@ -46,8 +53,6 @@
                     // Objects
                     var obj_earth = new THREE.SphereGeometry(25, 100, 100);
                     var obj_sun = new THREE.SphereGeometry(100, 100, 100);
-                    
-                    obj_earth.position = (10, 10, 0);
                     
                     // Meshes
                     var m_earth = new THREE.MeshStandardMaterial({map : earth});
@@ -85,14 +90,14 @@
                     requestAnimationFrame(animate);
                     controls.update();
                     
-                    // "Earth"'s translation
-                    aux += 0.001; 
-                    mesh_earth.position.x = Math.sin(aux) * r;
-                    mesh_earth.position.z = Math.cos(aux) * r;
+                    // Earth's translation
+                    aux += 0.003; 
+                    mesh_earth.position.x =  r * -Math.sin(aux);
+                    mesh_earth.position.z =  r * Math.cos(aux);
 
                     // Rotations
-                    mesh_earth.rotation.y += 0.016;
-                    mesh_sun.rotation.y += 0.01997;
+                    mesh_earth.rotation.y += 0.048;
+                    mesh_sun.rotation.y += 0.05991;
 
                     render.render(scene, cam);
                 }
