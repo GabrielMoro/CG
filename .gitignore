@@ -2,6 +2,5 @@
 .vscode
 *.o
 desktop.ini
-build
 main
 x64
