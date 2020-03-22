@@ -9,7 +9,7 @@
             <style>
                 body {
                     margin: 0px;
-                    background-color: #111111;
+                    background-color: #000000;
                     overflow: hidden;
                 }
             </style>
@@ -21,32 +21,51 @@
 
             <script>
                 var cam, scene, render, mash;
-                var aux = 0;
+                var controls;
+                var aux = 0, r = 400;
 
                 init();
                 animate();
 
                 function init(){
-                    cam = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);
-                    cam.position.z = 550;
+                    // Camera
+                    cam = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 2500);
+                    cam.position.z = 750;
 
                     scene = new THREE.Scene();
 
-                    var texture = new THREE.TextureLoader().load('../data/textures/sand.png');
-                    var obj = new THREE.SphereGeometry(75, 100, 100);
-                    var material = new THREE.MeshBasicMaterial({map : texture});
-
-                    obj.scale = (0.5, 0.5, 0.5);
-                    obj.position = (20, 200, 0);
-
-                    mesh = new THREE.Mesh(obj, material);
-                    scene.add(mesh);
-
-                    renderer = new THREE.WebGLRenderer();
-                    renderer.setPixelRatio(window.devicePixelRatio);
-                    renderer.setSize(window.innerWidth, window.innerHeight);
+                    // Textures
+                    var earth = new THREE.TextureLoader().load('../data/textures/earth.jpg');
+                    var sun = new THREE.TextureLoader().load('../data/textures/sun.jpg');
                     
-                    document.body.appendChild(renderer.domElement);
+                    // Objects
+                    var obj_earth = new THREE.SphereGeometry(25, 100, 100);
+                    var obj_sun = new THREE.SphereGeometry(100, 100, 100);
+                    
+                    obj_earth.position = (10, 10, 0);
+                    
+                    // Meshes
+                    var m_earth = new THREE.MeshBasicMaterial({map : earth});
+                    var m_sun = new THREE.MeshBasicMaterial({map: sun});
+
+                    mesh_earth = new THREE.Mesh(obj_earth, m_earth);
+                    scene.add(mesh_earth);
+
+                    mesh_sun = new THREE.Mesh(obj_sun, m_sun);
+                    scene.add(mesh_sun);
+
+                    // Renderer
+                    render = new THREE.WebGLRenderer();
+                    render.setPixelRatio(window.devicePixelRatio);
+                    render.setSize(window.innerWidth, window.innerHeight);
+                    
+                    // Background Color
+                    render.setClearColor(0x010114);
+                    
+                    // Mouse controls
+                    controls = new THREE.OrbitControls(cam, render.domElement);
+
+                    document.body.appendChild(render.domElement);
 
                     window.addEventListener('resize', onWindowResize, false);
                 }
@@ -54,22 +73,23 @@
                 function onWindowResize() {
                     cam.aspect = window.innerWidth / window.innerHeight;
                     cam.updateProjectionMatrix();
-                    renderer.setSize(window.innerWidth, window.innerHeight);
+                    render.setSize(window.innerWidth, window.innerHeight);
                 }
 
                 function animate() {
                     requestAnimationFrame(animate);
-                    
-                    aux += 0.01; 
-
-                    mesh.position.x = Math.sin(aux) * 300;
-                    mesh.position.y = Math.cos(aux) * 300;
-
-                    mesh.rotation.z += 0.025;
-
-                    renderer.render(scene, cam);
-
                     controls.update();
+                    
+                    // "Earth"'s translation
+                    aux += 0.001; 
+                    mesh_earth.position.x = Math.sin(aux) * r;
+                    mesh_earth.position.z = Math.cos(aux) * r;
+
+                    // Rotations
+                    mesh_earth.rotation.y += 0.016;
+                    mesh_sun.rotation.y += 0.01997;
+
+                    render.render(scene, cam);
                 }
             </script>
         </body>
