@@ -3,7 +3,7 @@
 <!DOCTYPE html>
     <html>
         <head>
-            <title>Three.js: Test 1</title>
+            <title>Three.js Test</title>
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
             <style>
@@ -21,7 +21,7 @@
 
             <script>
                 var cam, scene, render, mash;
-                var controls;
+                var controls, light;
                 var aux = 0, r = 400;
 
                 init();
@@ -34,6 +34,11 @@
 
                     scene = new THREE.Scene();
 
+                    // Light
+                    light = new THREE.PointLight(0xffffff);
+                    light.position.set(0, 0, 0);
+                    scene.add(light);
+
                     // Textures
                     var earth = new THREE.TextureLoader().load('../data/textures/earth.jpg');
                     var sun = new THREE.TextureLoader().load('../data/textures/sun.jpg');
@@ -45,7 +50,7 @@
                     obj_earth.position = (10, 10, 0);
                     
                     // Meshes
-                    var m_earth = new THREE.MeshBasicMaterial({map : earth});
+                    var m_earth = new THREE.MeshStandardMaterial({map : earth});
                     var m_sun = new THREE.MeshBasicMaterial({map: sun});
 
                     mesh_earth = new THREE.Mesh(obj_earth, m_earth);
