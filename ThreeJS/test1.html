@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+    <html>
+        <head>
+            <title>Three.js: Test 1</title>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+            <style>
+                body {
+                    margin: 0px;
+                    background-color: #111111;
+                    overflow: hidden;
+                }
+            </style>
+        </head>
+
+        <body>
+            <script src="three/build/three.js"></script>
+
+            <script>
+                var cam, scene, render, mash;
+                var aux = 0;
+
+                init();
+                animate();
+
+                function init(){
+                    cam = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);
+                    cam.position.z = 550;
+
+                    scene = new THREE.Scene();
+
+                    var texture = new THREE.TextureLoader().load('../data/textures/sand.png');
+                    var obj = new THREE.SphereGeometry(75, 100, 100);
+                    var material = new THREE.MeshBasicMaterial({map : texture});
+
+                    obj.scale = (0.5, 0.5, 0.5);
+                    obj.position = (20, 200, 0);
+
+                    mesh = new THREE.Mesh(obj, material);
+                    scene.add(mesh);
+
+                    renderer = new THREE.WebGLRenderer();
+                    renderer.setPixelRatio(window.devicePixelRatio);
+                    renderer.setSize(window.innerWidth, window.innerHeight);
+                    
+                    document.body.appendChild(renderer.domElement);
+
+                    window.addEventListener('resize', onWindowResize, false);
+                }
+
+                function onWindowResize() {
+                    cam.aspect = window.innerWidth / window.innerHeight;
+                    cam.updateProjectionMatrix();
+                    renderer.setSize(window.innerWidth, window.innerHeight);
+                }
+
+                function animate() {
+                    requestAnimationFrame(animate);
+                    
+                    aux += 0.01; 
+
+                    mesh.position.x = Math.sin(aux) * 300;
+                    mesh.position.y = Math.cos(aux) * 300;
+
+                    mesh.rotation.z += 0.025;
+
+                    renderer.render(scene, cam);
+                }
+            </script>
+        </body>
+    </html>
