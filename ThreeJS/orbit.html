@@ -55,8 +55,8 @@
                     var obj_sun = new THREE.SphereGeometry(100, 100, 100);
                     
                     // Meshes
-                    var m_earth = new THREE.MeshStandardMaterial({map : earth});
-                    var m_sun = new THREE.MeshBasicMaterial({map: sun});
+                    var m_earth = new THREE.MeshStandardMaterial({map : earth});    // Material affected by light
+                    var m_sun = new THREE.MeshBasicMaterial({map: sun});            // Material not affected by light
 
                     mesh_earth = new THREE.Mesh(obj_earth, m_earth);
                     scene.add(mesh_earth);
@@ -88,6 +88,7 @@
 
                 function animate() {
                     requestAnimationFrame(animate);
+                    
                     controls.update();
                     
                     // Earth's translation
