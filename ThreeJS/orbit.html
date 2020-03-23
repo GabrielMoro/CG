@@ -18,6 +18,7 @@
         <body>
             <script src="three.js/build/three.js"></script>
             <script src="js/controls/OrbitControls.js"></script>
+            <script src="js/libs/dat.gui.min.js"></script>
 
             <script>
                 "use strict";
@@ -25,7 +26,9 @@
                 var mesh_earth, mesh_sun;
                 var cam, scene, render;
                 var controls, light;
+                var gui;
                 var aux = 0, r = 450;
+                var params = {speed : 1, light : 5};
 
                 init();
                 animate();
@@ -38,7 +41,7 @@
                     scene = new THREE.Scene();
 
                     // Light
-                    light = new THREE.PointLight(0xffffff, 5, 0, 2);
+                    light = new THREE.PointLight(0xffffff, params.light, 0, 2);
                     light.position.set(0, 0, 0);
                     scene.add(light);
 
@@ -65,7 +68,7 @@
                     scene.add(mesh_sun);
 
                     // Renderer
-                    render = new THREE.WebGLRenderer();
+                    render = new THREE.WebGLRenderer({ antialias: true });
                     render.setPixelRatio(window.devicePixelRatio);
                     render.setSize(window.innerWidth, window.innerHeight);
                     
@@ -78,6 +81,12 @@
                     document.body.appendChild(render.domElement);
 
                     window.addEventListener('resize', onWindowResize, false);
+
+                    // GUI
+                    gui = new dat.GUI();
+                    gui.add(params, 'speed', 0, 15);
+                    gui.add(params, 'light', 5, 10);
+                    gui.open();
                 }
 
                 function onWindowResize() {
@@ -90,15 +99,18 @@
                     requestAnimationFrame(animate);
                     
                     controls.update();
+
+                    // GUI vars
+                    light.intensity = params.light;
                     
                     // Earth's translation
-                    aux += 0.003; 
+                    aux += 0.001 * params.speed; 
                     mesh_earth.position.x =  r * -Math.sin(aux);
                     mesh_earth.position.z =  r * Math.cos(aux);
 
                     // Rotations
-                    mesh_earth.rotation.y += 0.048;
-                    mesh_sun.rotation.y += 0.05991;
+                    mesh_earth.rotation.y += 0.016 * params.speed;
+                    mesh_sun.rotation.y += 0.01997 * params.speed;
 
                     render.render(scene, cam);
                 }
