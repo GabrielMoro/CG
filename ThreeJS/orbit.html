@@ -42,7 +42,6 @@
 
                     // Light
                     light = new THREE.PointLight(0xffffff, params.light, 0, 2);
-                    light.position.set(0, 0, 0);
                     scene.add(light);
 
                     // XYZ Axis
@@ -62,6 +61,7 @@
                     var m_sun = new THREE.MeshBasicMaterial({map: sun});            // Material not affected by light
 
                     mesh_earth = new THREE.Mesh(obj_earth, m_earth);
+                    mesh_earth.rotation.x = 0.4101524;
                     scene.add(mesh_earth);
 
                     mesh_sun = new THREE.Mesh(obj_sun, m_sun);
