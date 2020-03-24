@@ -10,4 +10,4 @@ chrome.exe --allow-file-access-from-files
 
 ### Orbit
 
-![Sem título](https://user-images.githubusercontent.com/22036337/77358437-9db18e00-6d28-11ea-8d62-3835cec52b3f.png)
+![Sem título](https://user-images.githubusercontent.com/22036337/77485185-4506f180-6e0b-11ea-8512-510816372128.png)
